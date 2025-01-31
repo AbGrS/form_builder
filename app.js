@@ -1,5 +1,5 @@
 import { createTextField, createRadioField, createCheckboxField } from './fieldTypes.js';
-import { saveForm, loadForm, saveResponse, loadResponses } from './storage.js';
+import {  saveResponse, loadResponses } from './storage.js';
 import { generateUniqueId } from './utils.js';
 
 window.onload = function() {
