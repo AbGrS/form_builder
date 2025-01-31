@@ -1,0 +1,14 @@
+{
+  "name": "form-builder",
+  "version": "1.0.0",
+  "description": "A sample form builder using javascript and typescript",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.7.3"
+  }
+}

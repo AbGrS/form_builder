@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Form Builder</h1>
+        
+        <!-- Toolbar to add fields -->
+        <div class="toolbar">
+            <button id="addTextField">Add Text Field</button>
+            <button id="addRadioField">Add Radio Field</button>
+            <button id="addCheckboxField">Add Checkbox Field</button>
+        </div>
+
+        <!-- Form builder container -->
+        <div id="formBuilder">
+            <h2>Form Preview</h2>
+            <form id="formPreview"></form>
+            <button id="saveFormBtn">Save Form</button>
+        </div>
+
+        <!-- Response Preview -->
+        <div id="responsePreview">
+            <h2>Submitted Responses</h2>
+            <ul id="responseList"></ul>
+        </div>
+    </div>
+</body>
+</html>
