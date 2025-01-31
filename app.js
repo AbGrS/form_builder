@@ -1,5 +1,5 @@
 import { createTextField, createRadioField, createCheckboxField } from './fieldTypes.js';
-import { saveResponse, loadResponses } from './storage.js';
+import { saveForm, loadForm, saveResponse, loadResponses } from './storage.js';
 import { generateUniqueId } from './utils.js';
 
 window.onload = function() {
@@ -17,6 +17,9 @@ window.onload = function() {
 
     loadForms();
 };
+
+// Global variable to hold the form data
+let currentForm = [];
 
 function addField(type) {
     let label = prompt('Enter label for the field:') || '';
@@ -36,6 +39,70 @@ function addField(type) {
     renderForm();
 }
 
+function renderForm() {
+    const formPreview = document.getElementById('formPreview');
+    formPreview.innerHTML = '';
+
+    currentForm.forEach((field, index) => {
+        const fieldElement = document.createElement('div');
+        const fieldLabel = document.createElement('label');
+        fieldLabel.textContent = field.label;
+        
+        if (field.type === 'text') {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = field.value;
+            input.addEventListener('input', function(e) {
+                field.value = e.target.value;
+            });
+            fieldElement.appendChild(fieldLabel);
+            fieldElement.appendChild(input);
+        } else if (field.type === 'radio') {
+            field.options.forEach(function(option) {
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `field-${index}`;
+                input.value = option;
+                input.checked = field.value === option;
+                input.addEventListener('change', function(e) {
+                    field.value = e.target.value;
+                });
+                
+                const optionLabel = document.createElement('label');
+                optionLabel.textContent = option;
+
+                fieldElement.appendChild(input);
+                fieldElement.appendChild(optionLabel);
+            });
+        } else if (field.type === 'checkbox') {
+            field.options.forEach(function(option) {
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.value = option;
+                input.checked = field.value.includes(option);
+                input.addEventListener('change', function(e) {
+                    if (input.checked) {
+                        field.value.push(option);
+                    } else {
+                        field.value = field.value.filter(function(v) {
+                            return v !== option;
+                        });
+                    }
+                });
+                
+                const optionLabel = document.createElement('label');
+                optionLabel.textContent = option;
+
+                fieldElement.appendChild(input);
+                fieldElement.appendChild(optionLabel);
+            });
+        }
+
+        formPreview.appendChild(fieldElement);
+    });
+}
+
+// Collect form data when the form is submitted
 function submitForm() {
     const response = {};
 
